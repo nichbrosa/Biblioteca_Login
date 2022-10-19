@@ -60,7 +60,7 @@ public class TelaADM extends JFrame {
 	public TelaADM() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 451, 594);
+		setBounds(100, 100, 807, 594);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -102,7 +102,7 @@ public class TelaADM extends JFrame {
 		contentPane.add(txtsenha);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 381, 436, 80);
+		panel.setBounds(10, 370, 343, 80);
 		panel.setBorder(new TitledBorder(null, "A\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(Color.WHITE);
 		contentPane.add(panel);
@@ -171,11 +171,45 @@ public class TelaADM extends JFrame {
 			}
 		});
 		btnvoltar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnvoltar.setBounds(324, 23, 102, 33);
+		btnvoltar.setBounds(231, 23, 102, 33);
 		panel.add(btnvoltar);
 		
+		JButton btndelete = new JButton("Delete");
+		btndelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Valor nulo!", "Tente Novamente!", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					
+				
+				try {
+					Connection con = Conexao.faz_conexao();
+					
+					String sql = "delete from login where id_usuario=?";
+					
+					PreparedStatement stmt = con.prepareStatement(sql);
+					
+					stmt.setString(1, txtid.getText());
+					
+					stmt.execute();
+					stmt.close();
+					stmt.close();
+					JOptionPane.showMessageDialog(null, "Dados deletados", "Parabens!", JOptionPane.PLAIN_MESSAGE);
+					
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btndelete.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btndelete.setBounds(117, 23, 97, 33);
+		panel.add(btndelete);
+		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 463, 436, 94);
+		panel_1.setBounds(0, 453, 436, 94);
 		panel_1.setBorder(new TitledBorder(null, "Abrir dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBackground(Color.GREEN);
 		contentPane.add(panel_1);
@@ -277,29 +311,80 @@ public class TelaADM extends JFrame {
 		panel_1.add(btndados);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 158, 436, 213);
+		scrollPane.setBounds(347, 10, 436, 433);
 		contentPane.add(scrollPane);
 		
 		tbdados = new JTable();
+		tbdados.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		tbdados.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
 				{null, null, null},
 			},
 			new String[] {
 				"ID", "Usuario", "Senha"
 			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+		));
+		scrollPane.setViewportView(tbdados);
+		
+		JButton btnatualizar = new JButton("Atualizar");
+		btnatualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Valor nulo!", "Tente Novamente!", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					
+				
+				try {
+					Connection con = Conexao.faz_conexao();
+					
+					String sql = "update login set usuario=?, senha=? where id_usuario=?";	
+				
+					PreparedStatement stmt = con.prepareStatement(sql);
+					
+			
+					
+					stmt.setString(1, txtusuario.getText());
+					stmt.setString(2, txtsenha.getText());
+					stmt.setString(3, txtid.getText());
+					stmt.execute();
+					
+					stmt.close();
+					con.close();
+					JOptionPane.showMessageDialog(null, "Valor atualizado!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					}
+				}
 			}
 		});
-		scrollPane.setViewportView(tbdados);
+		btnatualizar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnatualizar.setBounds(641, 483, 142, 64);
+		contentPane.add(btnatualizar);
 	}
 }
