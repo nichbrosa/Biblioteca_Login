@@ -10,7 +10,7 @@ public class Conexao {
 	/**outra opcao de caminho para conexao
 	 * private String caminho ="jdbc:mysql://localhost/aplicacao";
 	 * private String usuario ="root";
-	 * private String senha="#Endhome10";
+	 * private String senha="";
 	 */
 	public static Connection faz_conexao() throws SQLException{
 		
@@ -19,7 +19,7 @@ public class Conexao {
 		Class.forName("com.mysql.jdbc.Driver");
 		//obter conexao a partir do gerenciador de driver (entre aspas o caminho do arquivo)
 		
-		return DriverManager.getConnection("jdbc:mysql://localhost/aplicacao", "root", "Endhome10");
+		return DriverManager.getConnection("jdbc:mysql://localhost/aplicacao", "root", "");
 			
 		} catch (ClassNotFoundException e) {
 			
